@@ -76,6 +76,8 @@ Verify provenance by running the following script
 source verify_provenance.sh
 ```
 
+You should see `Verified OK` message at the end of the provenance check indicating the provenance was good.
+
 ## Configure Binary Authorizaton for the workload cluster
 
 Configure Attestor and the binary auth policy by running
@@ -98,7 +100,9 @@ See the pod for the `allowed` workload comes up and is running.
 Check the events running `kubectl get events --sort-by=lastTimestamp` and you will see failure due to attestation for the `not-allowed` workload as below
 
 ```
+
 22s         Warning   FailedCreate              replicaset/not-allowed-54c7d6d977                    Error creating: admission webhook "imagepolicywebhook.image-policy.k8s.io" denied the request: Image docker.io/veermuchandi/welcome denied by Binary Authorization cluster admission rule for us-central1-c.wkload-cluster. Image docker.io/veermuchandi/welcome denied by attestor projects/veer-tkn-test1/attestors/tekton-chains-attestor: Expected digest with sha256 scheme, but got tag or malformed digest
+
 ```
 
 
