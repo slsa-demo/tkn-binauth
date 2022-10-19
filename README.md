@@ -101,7 +101,8 @@ Check the events running `kubectl get events --sort-by=lastTimestamp` and you wi
 
 ```
 
-22s         Warning   FailedCreate              replicaset/not-allowed-54c7d6d977                    Error creating: admission webhook "imagepolicywebhook.image-policy.k8s.io" denied the request: Image docker.io/veermuchandi/welcome denied by Binary Authorization cluster admission rule for us-central1-c.wkload-cluster. Image docker.io/veermuchandi/welcome denied by attestor projects/veer-tkn-test1/attestors/tekton-chains-attestor: Expected digest with sha256 scheme, but got tag or malformed digest
+22s         Warning   FailedCreate              replicaset/not-allowed-54c7d6d977                    
+Error creating: admission webhook "imagepolicywebhook.image-policy.k8s.io" denied the request: Image docker.io/veermuchandi/welcome denied by Binary Authorization cluster admission rule for us-central1-c.wkload-cluster. Image docker.io/veermuchandi/welcome denied by attestor projects/veer-tkn-test1/attestors/tekton-chains-attestor: Expected digest with sha256 scheme, but got tag or malformed digest
 
 ```
 
