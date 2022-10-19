@@ -50,9 +50,10 @@ Review pipeline steps from this sample pipeline [kaniko-pipeline.yaml](./kaniko-
 
 Verify the tasks created by running `tkn tasks list` and pipelines by running `tkn pipelines list`
 
-Execute the build pipeline by running the following command
+Execute the build pipeline by running the following two commands:
 
 ```
+source setup_env_vars.sh
 tkn pipeline start kaniko-test-pipeline \
 -p image=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPO}/fooapp \
 --pod-template=pod-template.yaml \
