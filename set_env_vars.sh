@@ -19,7 +19,7 @@ export LOCATION=us-central1
 export ZONE=us-central1-c
 export KEY=tekton-chains-key
 export KEY_VERSION=1
-export KMS_URI="gcpkms://projects/${KEY_PROJECT}/locations/${LOCATION}/keyRings/${KEYRING}/cryptoKeys/${KEY}/cryptoKeyVersions/${KEY_VERSION}"
+export KMS_URI="gcpkms://projects/${PROJECT_ID}/locations/${LOCATION}/keyRings/${KEYRING}/cryptoKeys/${KEY}/cryptoKeyVersions/${KEY_VERSION}"
 
 export ATTESTOR_NAME=tekton-chains-attestor
 export NOTE_ID=projects/${PROJECT_ID}/notes/tekton-default-simplesigning
