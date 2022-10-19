@@ -56,7 +56,7 @@ Execute the build pipeline by running the following command
 tkn pipeline start kaniko-test-pipeline \
 -p image=${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPO}/fooapp \
 --pod-template=pod-template.yaml \
--p source_url=https://github.com/slsa-demo/foo-app \ 
+-p source_url=https://github.com/slsa-demo/foo-app \
 -w name=source-workspace,claimName=workspace-pvc \
 -w name=cache-workspace,emptyDir="" \
 -s tekton-ksa \
