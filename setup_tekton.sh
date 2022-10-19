@@ -3,7 +3,7 @@
 source set_env_vars.sh
 
 #get security context and rename it to tkn
-gcloud container clusters get-credentials --zone=${ZONE} "${TEKTON_CLUSTER}" 
+gcloud container clusters get-credentials --region=us-central1 "${TEKTON_CLUSTER}" 
 kubectx tkn=$(kubectx -c)
 
 #create kubernetes service account to associate with workload identity
@@ -50,7 +50,7 @@ gcloud iam service-accounts add-iam-policy-binding $GSA_NAME@$PROJECT_ID.iam.gse
 #Annotate the KSA to point to the GSA to use
 kubectl annotate serviceaccount $KSA_NAME \
   --namespace $NAMESPACE \
-  iam.gke.io/gcp-service-account=$GSA_NAME@$PROJECT_ID.iam.gserviceaccount.co
+  iam.gke.io/gcp-service-account=$GSA_NAME@$PROJECT_ID.iam.gserviceaccount.com
 
 echo "Workload Identity Mapping done"
 
@@ -94,10 +94,10 @@ gcloud kms keys create "${KEY}" \
     --default-algorithm "rsa-sign-pkcs1-2048-sha256"
 gcloud kms keys add-iam-policy-binding "${KEY}" \
     --location="${LOCATION}" --keyring="${KEYRING}" \
-    --member "serviceAccount:${GSA_NAME}" --role "roles/cloudkms.cryptoOperator"
+    --member "serviceAccount:${GSA_NAME}@$PROJECT_ID.iam.gserviceaccount.com" --role "roles/cloudkms.cryptoOperator"
 gcloud kms keys add-iam-policy-binding "${KEY}" \
     --location="${LOCATION}" --keyring="${KEYRING}" \
-    --member "serviceAccount:${GSA_NAME}" --role "roles/cloudkms.viewer"
+    --member "serviceAccount:${GSA_NAME}@$PROJECT_ID.iam.gserviceaccount.com" --role "roles/cloudkms.viewer"
 
 # Configure Tekton Chains to use simplesigning of images; TaskRuns will be
 # captured using in-toto. Attestations for both will be signed with a KMS key
@@ -114,7 +114,9 @@ kubectl patch configmap chains-config -n tekton-chains \
 
 kubectl patch configmap chains-config -n tekton-chains -p='{"data":{"storage.grafeas.projectid": "'"$PROJECT_ID"'"}}'
 kubectl patch configmap chains-config -n tekton-chains -p='{"data":{"signers.kms.kmsref": "'"$KMS_URI"'"}}'
-kubectl patch configmap chains-config -n tekton-chains -p='{"data":{"storage.grafeas.noteid": "'"$NOTE_ID"'"}}'
+
+## DONOT set note id - chains will create a note named tekton-<NAMESPACE>-simplesigning 
+#kubectl patch configmap chains-config -n tekton-chains -p='{"data":{"storage.grafeas.noteid": "'"$NOTE_ID"'"}}'
 
 
 #Workload identity mapping to Tekton Chains Controller

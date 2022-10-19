@@ -28,8 +28,8 @@ gcloud container clusters create $TEKTON_CLUSTER \
 --enable-image-streaming \
 --scopes=cloud-platform \
 --no-issue-client-certificate \
---project=$PROJECT_ID \
---region=us-central1 \
+--project="${PROJECT_ID}" \
+--region="${LOCATION}" \
 --machine-type=n1-standard-4 \
 --image-type="COS_CONTAINERD" \
 --num-nodes=1 \
@@ -41,6 +41,10 @@ gcloud container clusters create "${WORKLOAD_CLUSTER}" \
 --binauthz-evaluation-mode=PROJECT_SINGLETON_POLICY_ENFORCE \
 --image-type="COS_CONTAINERD" \
 --enable-image-streaming  \
---num-nodes=1 --zone=us-central1-c \
+--num-nodes=1 --zone="${ZONE}" \
 --machine-type="e2-micro"
+
+# Set up Artifact Registry: create a docker repository 
+gcloud artifacts repositories create "${ARTIFACT_REPO}" \
+    --repository-format=docker --location="${LOCATION}"
 

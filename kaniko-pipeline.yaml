@@ -27,7 +27,7 @@ spec:
           value: true
     - name: kaniko-chains 
       taskRef:
-        name: kaniko-chains 
+        name: kaniko 
       runAfter:
         - fetch-repository 
       workspaces:
