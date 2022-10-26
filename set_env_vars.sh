@@ -3,6 +3,7 @@
 export PROJECT_ID=[REPLACE_ME]
 export ORGANIZATION_ID=[REPLACE_ME]
 export BILLING_ACCOUNT=[REPLACE_ME]
+#if running on Argolis, uncomment next line and set GCP_USER_ACCOUNT to Argolis user account
 export GCP_USER_ACCOUNT=[REPLACE_ME]
 PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
 
