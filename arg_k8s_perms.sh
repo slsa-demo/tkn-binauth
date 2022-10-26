@@ -1,8 +1,5 @@
 ## If you are running on argolis, prepare project to run GKE clusters
 
-# argolis user account
-GCP_USER_ACCOUNT=[USER]@[ARGOLISACCOUNT]].altostrat.com
-
 gcloud config set project ${PROJECT_ID}
 
 PROJECT_NUMBER=$(gcloud projects list \
